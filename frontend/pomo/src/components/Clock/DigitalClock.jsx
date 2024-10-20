@@ -4,6 +4,7 @@ import {Box, Button, Typography, Stack} from '@mui/material';
 export default function DigitalClock() {
   const [remainingTime, setRemainingTime] = useState(1500);
   const [isRunning, setIsRunning] = useState(false);
+  const [isBreak, setIsBreak] = useState(false);
 
   useEffect(() => {
     let intervalId;
@@ -14,13 +15,20 @@ export default function DigitalClock() {
           if(prevTime <= 0) {
             clearInterval(intervalId);
             setIsRunning(false);
+            if (isBreak) {
+              setIsBreak(false);
+              setRemainingTime(1500);
+            } else {
+              setIsBreak(true);
+              setRemainingTime(300);
+            }
+            setIsRunning(true);
             return 0;
           }
           return prevTime - 1;
         });
       }, 1000);
     }
-
     return () => clearInterval(intervalId);
   }, [isRunning]);
 
@@ -38,7 +46,9 @@ export default function DigitalClock() {
       alignItems="center"
       p={2}
     >
-      <Typography variant="h2">{formatTime(remainingTime)}</Typography>
+      <Typography variant="h2">
+      {isBreak} {formatTime(remainingTime)}
+        </Typography>
       
       <Stack direction="row" spacing={2} mt={5}>
       {/* Start button */}
@@ -54,7 +64,7 @@ export default function DigitalClock() {
         variant="outlined"
         color="primary"
         onClick={() => {
-          setRemainingTime(1500);
+          setRemainingTime(isBreak ? 300 : 1500);
           setIsRunning(false);
         }}
         disabled={!isRunning}
