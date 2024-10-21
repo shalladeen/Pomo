@@ -46,33 +46,83 @@ export default function DigitalClock() {
       alignItems="center"
       p={2}
     >
-      <Typography variant="h2">
+      <Typography variant="h2"
+          sx={{
+            fontSize: {
+              xs: '10vw',  
+              sm: '6rem', 
+              md: '8rem',  
+              lg: '10rem', 
+              xl: '12rem', 
+            },
+          }}
+        
+      >
       {isBreak} {formatTime(remainingTime)}
         </Typography>
       
-      <Stack direction="row" spacing={2} mt={5}>
-      {/* Start button */}
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => setIsRunning((prevIsRunning) => !prevIsRunning)}
-      >
-        {isRunning ? 'Pause Timer' : 'Start Timer'}
-      </Button>
-      {/* Reset button */}
-      <Button
-        variant="outlined"
-        color="primary"
-        onClick={() => {
-          setRemainingTime(isBreak ? 300 : 1500);
-          setIsRunning(false);
-        }}
-        disabled={!isRunning}
-        sx={{ mt: 4 }}
-      >
-       Reset Timer
-      </Button>
-      </Stack>
+        <Stack direction="row" spacing={2} mt={5}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => setIsRunning(!isRunning)}
+            sx={{
+              width: {
+                xs: '100px',
+                sm: '120px',
+                md: '150px',
+                lg: '200px',
+              },
+              height: {
+                xs: '40px',
+                sm: '50px',
+                md: '60px',
+                lg: '70px',
+              },
+              fontSize: {
+                xs: '0.8rem',
+                sm: '1rem',
+                md: '1.2rem',
+                lg: '1.5rem',
+              },
+            }}
+          >
+            {isRunning ? 'Pause Timer' : 'Start Timer'}
+          </Button>
+
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => {
+              setRemainingTime(isBreak ? 300 : 1500);
+              setIsRunning(false);
+            }}
+              disabled={!isRunning}
+            sx={{
+              width: {
+                xs: '100px',
+                sm: '120px',
+                md: '150px',
+                lg: '200px',
+              },
+              height: {
+                xs: '40px',
+                sm: '50px',
+                md: '60px',
+                lg: '70px',
+              },
+              fontSize: {
+                xs: '0.8rem',
+                sm: '1rem',
+                md: '1.2rem',
+                lg: '1.5rem',
+              },
+              mt: 4,
+            }}
+          >
+            Reset Timer
+          </Button>
+        </Stack>
     </Box>
   )
 }
